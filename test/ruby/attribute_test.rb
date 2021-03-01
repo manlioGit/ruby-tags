@@ -6,12 +6,12 @@ module Ruby
       include ::Ruby::Tags::Html
 
       def test_render
-        assert_equal "id='123' class='fa fa-up'", attr(id: "123", class: "fa fa-up").render
-        assert_equal "id='123' class='fa fa-up'", attr(id: 123, class: "fa fa-up").render
+        assert_equal " id='123' class='fa fa-up'", attr(id: "123", class: "fa fa-up").render
+        assert_equal " id='123' class='fa fa-up'", attr(id: 123, class: "fa fa-up").render
       end
 
       def test_render_normalize_spaces
-        assert_equal "id='123' class='fa fa-up'", attr(id: "  123 ", class: " fa      fa-up ").render
+        assert_equal " id='123' class='fa fa-up'", attr(id: "  123 ", class: " fa      fa-up ").render
       end
 
       def test_dont_render_null_or_empty
@@ -23,7 +23,7 @@ module Ruby
               " ": "xx",
               " " => "ccc"
 
-        assert_equal "id='123' class='fa fa-up'", a.render
+        assert_equal " id='123' class='fa fa-up'", a.render
       end
 
       def test_add_attribute_using_hash
@@ -36,7 +36,7 @@ module Ruby
               .add(nil => nil)
               .add(yyy: "show-some")
 
-        assert_equal "class='some fa fa-up' xxx='fa fa-up show hide' yyy='show-some'", a.render
+        assert_equal " class='some fa fa-up' xxx='fa fa-up show hide' yyy='show-some'", a.render
       end
 
       def test_add_attribute_using_attribute
@@ -46,7 +46,7 @@ module Ruby
               .add(attr xxx: "hide")
               .add(attr xxx: "show", yyy: "show-some")
 
-        assert_equal "class='some fa fa-up' xxx='fa fa-up hide show' yyy='show-some'", a.render
+        assert_equal " class='some fa fa-up' xxx='fa fa-up hide show' yyy='show-some'", a.render
       end
 
       def test_remove_attribute_using_hash
@@ -61,9 +61,9 @@ module Ruby
           .remove("xxx" => "fa-up")
           .remove(notExistentKey: "show-some")
 
-        assert_equal "class='.some fa'", a.render
-        assert_equal "class='.some'", attr(class: ".some fa fa-up").remove(class:"fa fa-up").render
-        assert_equal "class='.some fa fa-up'", attr(class: ".some fa fa-up").remove(nil => nil).render
+        assert_equal " class='.some fa'", a.render
+        assert_equal " class='.some'", attr(class: ".some fa fa-up").remove(class:"fa fa-up").render
+        assert_equal " class='.some fa fa-up'", attr(class: ".some fa fa-up").remove(nil => nil).render
       end
 
       def test_remove_using_attribute
@@ -76,7 +76,7 @@ module Ruby
               .remove(attr xxx: "fa-up")
               .remove(attr notExistentKey: "show-some")
 
-        assert_equal "class='.some fa'", a.render
+        assert_equal " class='.some fa'", a.render
       end
 
       def test_complete_removal
@@ -102,7 +102,11 @@ module Ruby
       end
 
       def test_sanitize
-        assert_equal "value='1&#x27;000'", attr(value: "1'000").render
+        assert_equal " value='1&#x27;000'", attr(value: "1'000").render
+      end
+
+      def test_empty_attribute
+        assert_equal "", attr.render
       end
     end
   end
