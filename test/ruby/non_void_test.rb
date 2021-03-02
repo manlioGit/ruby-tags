@@ -60,7 +60,6 @@ module Ruby
           .add(NonVoid.new("span"))
           .add(NonVoid.new("div"))
 
-
         assert_render "<div><span></span><span></span><span></span><div></div></div>", nonVoid
       end
     end
