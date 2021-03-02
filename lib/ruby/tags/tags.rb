@@ -26,6 +26,10 @@ module Ruby
       def render
         @text
       end
+
+      def ==(other)
+        @text == other.instance_variable_get(:@text)
+      end
     end
 
     class NonVoid
