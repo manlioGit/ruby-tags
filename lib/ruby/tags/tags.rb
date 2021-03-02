@@ -15,6 +15,10 @@ module Ruby
         @tags << tag
         self
       end
+
+      def ==(other)
+        @tags == other.instance_variable_get(:@tags)
+      end
     end
 
     class Text
@@ -34,8 +38,10 @@ module Ruby
 
     class NonVoid
 
-      def initialize(name, attribute = Attribute.new, *tags)
-        @name, @attribute, @children = name, attribute, tags
+      def initialize(name, *renders)
+        @name = name
+        @attribute = renders.find { |r| r.is_a? Attribute } || Attribute.new
+        @children = renders.reject { |r| r.is_a? Attribute }
       end
 
       def render

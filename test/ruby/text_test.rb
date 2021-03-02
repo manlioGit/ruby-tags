@@ -9,7 +9,7 @@ module Ruby
       end
 
       def test_render
-        assert_equal "aaa", Text.new("aaa").render
+        assert_render "aaa", Text.new("aaa")
       end
     end
   end

@@ -14,27 +14,28 @@ module Ruby
       end
 
       def test_simple_tag_with_text
-        assert_render "<div>text</div>", NonVoid.new("div", Attribute.new, Text.new("text"))
+        assert_render "<div>text</div>", NonVoid.new("div", Text.new("text"))
+        assert_render "<div id='123'>text</div>", NonVoid.new("div", Attribute.new(id: 123), Text.new("text"))
       end
 
       def test_nested_tag
-        assert_render "<div><span></span></div>", NonVoid.new("div", Attribute.new, NonVoid.new("span"))
+        assert_render "<div><span></span></div>", NonVoid.new("div", NonVoid.new("span"))
+        assert_render "<div id='123'><span></span></div>", NonVoid.new("div", Attribute.new(id: "123"), NonVoid.new("span"))
+        assert_render "<div><span id='123'></span></div>", NonVoid.new("div", NonVoid.new("span", Attribute.new(id: "123")))
       end
 
       def test_nested_tag_with_text
-        tag = NonVoid.new("div", Attribute.new, NonVoid.new("span", Attribute.new, Text.new("text")))
-
-        assert_render "<div><span>text</span></div>", tag
+        assert_render "<div><span>text</span></div>", NonVoid.new("div", NonVoid.new("span", Text.new("text")))
       end
 
       def test_text_and_nested_tag
-        tag = NonVoid.new("div", Attribute.new, Text.new("text"), NonVoid.new("span"))
+        tag = NonVoid.new("div", Text.new("text"), NonVoid.new("span"))
 
         assert_render "<div>text<span></span></div>", tag
       end
 
       def test_nested_tag_and_text
-        tag = NonVoid.new("div", Attribute.new, NonVoid.new("span"), Text.new("text"))
+        tag = NonVoid.new("div", NonVoid.new("span"), Text.new("text"))
 
         assert_render "<div><span></span>text</div>", tag
       end
