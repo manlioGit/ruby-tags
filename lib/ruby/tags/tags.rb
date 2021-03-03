@@ -45,7 +45,7 @@ module Ruby
       end
 
       def render
-        @children.inject("<#{@name}#{@attribute.render}>") { |m, t| m + t.render } + "</#{@name}>"
+        @children.reduce("<#{@name}#{@attribute.render}>") { |m, t| m + t.render } + "</#{@name}>"
       end
 
       def add(tag)

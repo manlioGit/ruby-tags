@@ -38,7 +38,7 @@ module Ruby
 
       def render
         @attributes.reject{ |k,v| [k,v].any? { |x| Attribute.blank? x } }
-                   .inject(@attributes.empty? && "" || " ") { |m, (k, a)| "#{m}#{k}='#{sanitize(a)}' " }
+                   .reduce(@attributes.empty? && "" || " ") { |m, (k, a)| "#{m}#{k}='#{sanitize(a)}' " }
                    .delete_suffix(" ")
       end
 

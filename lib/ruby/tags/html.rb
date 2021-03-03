@@ -2,12 +2,16 @@ module Ruby
   module Tags
     module Html
 
+      def html5(*renderable)
+        Group.new Text.new("<!DOCTYPE html>"), NonVoid.new("html", *renderable)
+      end
+
       def attr(attributes = {})
         Attribute.new attributes
       end
 
-      def html5(*renderable)
-        Group.new Text.new("<!DOCTYPE html>"), NonVoid.new("html", *renderable)
+      def text(string)
+        Text.new string
       end
 
       #############################################
