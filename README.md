@@ -1,7 +1,5 @@
 # Ruby::Tags
 
-This is currently a **DRAFT** !
-
 RubyTags is a small XML/HTML construction templating library for Ruby, inspired by JavaTags.
 
 ## Installation

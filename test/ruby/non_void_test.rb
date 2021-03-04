@@ -9,13 +9,13 @@ module Ruby
       end
 
       def test_simple_tag_with_attribute
-        assert_render "<div id='123'></div>", NonVoid.new("div", Attribute.new(id: 123))
+        assert_render "<div id='123' class='x'></div>", NonVoid.new("div", Attribute.new(id: 123, class: "x"))
         assert_render "<div id='123'></div>", NonVoid.new("div", Attribute.new(id: "123"))
       end
 
       def test_simple_tag_with_text
         assert_render "<div>text</div>", NonVoid.new("div", Text.new("text"))
-        assert_render "<div id='123'>text</div>", NonVoid.new("div", Attribute.new(id: 123), Text.new("text"))
+        assert_render "<div id='123' class='x'>text</div>", NonVoid.new("div", Attribute.new(id: 123, class: "x"), Text.new("text"))
       end
 
       def test_nested_tag
@@ -29,9 +29,7 @@ module Ruby
       end
 
       def test_text_and_nested_tag
-        tag = NonVoid.new("div", Text.new("text"), NonVoid.new("span"))
-
-        assert_render "<div>text<span></span></div>", tag
+        assert_render "<div>text<span></span></div>", NonVoid.new("div", Text.new("text"), NonVoid.new("span"))
       end
 
       def test_nested_tag_and_text
