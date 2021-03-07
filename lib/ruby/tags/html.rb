@@ -14,6 +14,10 @@ module Ruby
         Text.new string
       end
 
+      def group(*tags)
+        Group.new *tags
+      end
+
       # Void html elements. W3C [reference](https://www.w3.org/TR/2011/WD-html-markup-20110405/syntax.html#syntax-elements)
       #
       # Example:

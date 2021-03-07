@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "ruby-tags"
-  spec.version       = "0.1.0"
+  spec.version       = "0.1.1"
   spec.authors       = ["manlioGit"]
   spec.email         = ["manliomodugno@gmail.com"]
 

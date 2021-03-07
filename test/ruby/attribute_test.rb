@@ -16,12 +16,12 @@ module Ruby
 
       def test_dont_render_null_or_empty
         a = attr id: 123,
-              "  ": nil,
-              class: "fa fa-up",
-              nil => "xx",
-              x: "",
-              " ": "xx",
-              " " => "ccc"
+                 "  ": nil,
+                 class: "fa fa-up",
+                 nil => "xx",
+                 x: "",
+                 " ": "xx",
+                 " " => "ccc"
 
         assert_render " id='123' class='fa fa-up'", a
       end
@@ -51,15 +51,15 @@ module Ruby
 
       def test_remove_attribute_using_hash
         a = attr(class: ".some fa fa-up", xxx: "fa fa-up")
-          .remove(class: "fa-up")
-          .remove(nil)
-          .remove("class" => "notExistent")
-          .remove("xxx" => "fa")
-          .remove(xxx: nil)
-          .remove(nil => nil)
-          .remove(xxx: "fa-up")
-          .remove("xxx" => "fa-up")
-          .remove(notExistentKey: "show-some")
+              .remove(class: "fa-up")
+              .remove(nil)
+              .remove("class" => "notExistent")
+              .remove("xxx" => "fa")
+              .remove(xxx: nil)
+              .remove(nil => nil)
+              .remove(xxx: "fa-up")
+              .remove("xxx" => "fa-up")
+              .remove(notExistentKey: "show-some")
 
         assert_render " class='.some fa'", a
         assert_render " class='.some'", attr(class: ".some fa fa-up").remove(class:"fa fa-up")
@@ -81,10 +81,10 @@ module Ruby
 
       def test_complete_removal
         a = attr(class: ".some fa fa-up", xxx: "fa fa-up")
-          .remove("class")
-          .remove(:class)
-          .remove("xxx")
-          .remove(:xxx)
+             .remove("class")
+             .remove(:class)
+             .remove("xxx")
+             .remove(:xxx)
 
         assert_render "", a
       end
@@ -92,8 +92,8 @@ module Ruby
       def test_equality
         a = attr class: ".some fa fa-up", xxx: "fa fa-up"
         b = attr xxx: "fa fa-up", class: ".some fa fa-up"
-        c = attr.add(xxx: "fa").add(xxx: "fa-up")
-                .add("class" => "fa").add(class: ".some").add("class" => "fa-up")
+        c = attr.add(xxx: "fa").add(xxx: "fa-up").add("class" => "fa")
+                .add(class: ".some").add("class" => "fa-up")
 
         assert_equal a,b
         assert_equal b,c

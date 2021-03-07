@@ -2,10 +2,6 @@ module Ruby
   module Tags
     class Attribute
 
-      def self.blank?(s)
-        s.nil? || s.to_s.strip.empty? || s.empty?
-      end
-
       def initialize(attributes = {})
         @attributes = attributes.to_h { |k,v| [k, v.to_s.split] }
       end
@@ -37,7 +33,7 @@ module Ruby
       end
 
       def render
-        @attributes.reject{ |k,v| [k,v].any? { |x| Attribute.blank? x } }
+        @attributes.reject{ |k,v| [k,v].any? { |x| blank? x } }
                    .reduce(@attributes.empty? && "" || " ") { |m, (k, a)| "#{m}#{k}='#{sanitize(a)}' " }
                    .delete_suffix(" ")
       end
@@ -63,6 +59,10 @@ module Ruby
 
       def sanitize(s)
         s.join(" ").gsub(/'/,"&#x27;").strip
+      end
+
+      def blank?(s)
+        s.nil? || s.to_s.strip.empty? || s.empty?
       end
     end
   end
