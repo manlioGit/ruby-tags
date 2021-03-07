@@ -53,7 +53,7 @@ Include module `Html` in your class.
 
 ```ruby
 class Layout
-  include Html
+  include Ruby::Tags::Html
   
   #...
 end
