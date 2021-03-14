@@ -103,6 +103,32 @@ module Ruby
 
         assert_render "<script type='text/javascript'>function xxx(){alert('yay!');}</script>", s
       end
+
+      def test_table_component
+        data = [{ th1: "value1", th2: "value2" }, { th1: "value3", th2: "value4" }]
+        header = data.first.keys
+
+        table = table(attr(class: "table"),
+                  thead(
+                    header.reduce(tr) { |tr, header| tr.add(th(text(header.to_s))) },
+                  ),
+                  data.reduce(tbody) do |tbody, record|
+                    tbody.add(
+                      header.reduce(tr) { |row, x| row.add(td(text(record[x]))) }
+                    )
+                  end
+                )
+
+        assert_render "<table class='table'>" +
+                        "<thead>" +
+                          "<tr><th>th1</th><th>th2</th></tr>" +
+                        "</thead>" +
+                        "<tbody>" +
+                          "<tr><td>value1</td><td>value2</td></tr>" +
+                          "<tr><td>value3</td><td>value4</td></tr>" +
+                        "</tbody>" +
+                       "</table>", table
+      end
     end
   end
 end

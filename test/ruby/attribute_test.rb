@@ -14,7 +14,7 @@ module Ruby
         assert_render " id='123' class='fa fa-up'", attr(id: "  123 ", class: " fa      fa-up ")
       end
 
-      def test_dont_render_null_or_empty
+      def test_dont_render_null_or_empty_keys
         a = attr id: 123,
                  "  ": nil,
                  class: "fa fa-up",
@@ -23,7 +23,7 @@ module Ruby
                  " ": "xx",
                  " " => "ccc"
 
-        assert_render " id='123' class='fa fa-up'", a
+        assert_render " id='123' class='fa fa-up' x=''", a
       end
 
       def test_add_attribute_using_hash
@@ -61,7 +61,7 @@ module Ruby
               .remove("xxx" => "fa-up")
               .remove(notExistentKey: "show-some")
 
-        assert_render " class='.some fa'", a
+        assert_render " class='.some fa' xxx=''", a
         assert_render " class='.some'", attr(class: ".some fa fa-up").remove(class:"fa fa-up")
         assert_render " class='.some fa fa-up'", attr(class: ".some fa fa-up").remove(nil => nil)
       end
@@ -76,7 +76,7 @@ module Ruby
               .remove(attr xxx: "fa-up")
               .remove(attr notExistentKey: "show-some")
 
-        assert_render " class='.some fa'", a
+        assert_render " class='.some fa' xxx=''", a
       end
 
       def test_complete_removal

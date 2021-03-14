@@ -132,7 +132,7 @@ An example of page layout:
 
 ```ruby
 class Layout
-  include Html
+  include Ruby::Tags::Html
 
   def initialize(title, body)
     @title = title
@@ -157,6 +157,24 @@ class Layout
     ).render
   end
 end
+```
+
+An example of table using reduce:
+
+```ruby
+data = [{ th1: "value1", th2: "value2" }, { th1: "value3", th2: "value4" }]
+header = data.first.keys
+
+table(attr(class: "table"),
+  thead(
+    header.reduce(tr) { |tr, header| tr.add(th(text(header.to_s))) },
+  ),
+  data.reduce(tbody) do |tbody, record|
+    tbody.add(
+      header.reduce(tr) { |row, key| row.add(td(text(record[key]))) }
+    )
+  end
+)
 ```
 
 #### Element
