@@ -45,8 +45,7 @@ Or install it yourself as:
 
 ## Online converter
 
-~~To convert html to Ruby-Tags format try [online converter](http://javatagsconverter.herokuapp.com).~~
-Given heroku plan changes, follow docker instruction reported [here](https://github.com/manlioGit/javatagsconverter#local-run)
+To convert html to Ruby-Tags format try [online converter](https://javatagsconverter.fly.dev).
 
 ## Usage
 
